@@ -41,7 +41,7 @@ function getMaxAmount(movieArr) {
     return acc;
   }, []);
   return {
-    maxAmount: movieList.length,
+    maxAmount: movieList.length + " Crore",
     movieList: movieList.map((movie) => movie.name),
   };
 }
