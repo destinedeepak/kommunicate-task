@@ -11,7 +11,7 @@ function ifLiesBeween(x, y) {
   ) {
     return true;
   } else return false;
-}  // function to check if two pair of number lies between each other
+} // function to check if two pair of number lies between each other
 
 function getMaxAmount(movieArr) {
   let sortedMovie = [...movieArr].sort((a, b) => {
@@ -20,40 +20,39 @@ function getMaxAmount(movieArr) {
       getMS(a.startDate) -
       (getMS(b.endDate) - getMS(b.startDate))
     );
-  });    // Sorted arr of  movie by duration
-  return (
-    sortedMovie.reduce((acc, movie) => {
-      let isTrue = acc.some((sortedMovie, index) => {
-        if (
-          ifLiesBeween(
-            { a: movie.startDate, b: movie.endDate },
-            { a: sortedMovie.startDate, b: sortedMovie.endDate }
-          )
-        ) {
-          return true;
-        } else {
-          return false;
-        }
-      });
-      if (!isTrue) {
-        acc.push(movie);
+  }); // Sorted arr of  movie by duration
+
+  let movieList = sortedMovie.reduce((acc, movie) => {
+    let isTrue = acc.some((sortedMovie, index) => {
+      if (
+        ifLiesBeween(
+          { a: movie.startDate, b: movie.endDate },
+          { a: sortedMovie.startDate, b: sortedMovie.endDate }
+        )
+      ) {
+        return true;
+      } else {
+        return false;
       }
-      return acc;
-    }, []).length +
-    1 +
-    ' Crore'
-  );
+    });
+    if (!isTrue) {
+      acc.push(movie);
+    }
+    return acc;
+  }, []);
+  return {
+    maxAmount: movieList.length,
+    movieList: movieList.map((movie) => movie.name),
+  };
 }
 
 console.log(
   getMaxAmount([
-    { name: 'movie4', startDate: '12-01-2021', endDate: '12-13-2021' },
-    { name: 'movie1', startDate: '03-12-2021', endDate: '06-06-2021' },
-    { name: 'movie2', startDate: '01-01-2021', endDate: '02-02-2021' },
-    { name: 'movie3', startDate: '04-19-2021', endDate: '06-06-2021' },
-    { name: 'movie4', startDate: '12-12-2021', endDate: '12-30-2021' },
-    { name: 'movie5', startDate: '06-06-2021', endDate: '07-06-2021' },
-    { name: 'movie6', startDate: '07-12-2021', endDate: '12-06-2021' },
-    { name: 'movie7', startDate: '08-12-2021', endDate: '09-06-2021' },
+    { name: 'Bala', startDate: 'jan-08-2021', endDate: 'jan-28-2021' },
+    { name: 'Rock', startDate: 'jan-20-2021', endDate: 'jan-30-2021' },
+    { name: 'PolicyMaker', startDate: 'jan-29-2021', endDate: 'feb-16-2021' },
+    { name: 'Brave', startDate: 'feb-02-2021', endDate: 'feb-14-2021' },
+    { name: 'Drive', startDate: 'feb-10-2021', endDate: 'feb-18-2021' },
+    { name: 'Race', startDate: 'feb-15-2021', endDate: 'feb-28-2021' },
   ])
 );
